@@ -22,18 +22,18 @@
   **2** for analysis of intergenic regions using **Proteomics** data  
   **3** for analysis of intergenic regions using **integrated omics** approach    
   
-**\-\-fasta** genome file  
-**\-\-pileup**        one or more bowtie alignment output files in pileup format (obtained using samtools 'mpileup')  
-        (please provide space-separated absolute path for each file with respect to current working directory.   'pathtodir/*.pileup' can also be used)
-**\-\-pgm**   GFF file from Proteogenomic mapping tool or similar tools providing the locus of expressed peptides in GFF format  
-**\-\-anno**  annotation file in .gff or .ptt format  
-**\-\-output**        base filename to be used for all output files  
+**\-\-fasta** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;genome file  
+**\-\-pileup** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;one or more bowtie alignment output files in pileup format (obtained using samtools 'mpileup')  
+*(please provide space-separated absolute path for each file with respect to current working directory.   'pathtodir/\*.pileup' can also be used)*  
+**\-\-pgm** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GFF file from Proteogenomic mapping tool or similar tools providing the locus of expressed peptides in GFF format  
+**\-\-anno**  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;annotation file in .gff or .ptt format  
+**\-\-output** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base filename to be used for all output files  
 
 **Optional arguments:**  
 
-**\-\-pro**   file containing loci of promoters in the genome in .coords format (see below)\*\*  
-**\-\-term**  file containing loci of terminators in the genome in .coords format (see below)\*\*  
-**\-\-intlen**  minimum length of an intergenic region to be considered as a region of interest for downstream RNA-seq data analysis (default cutoff is **70bp**)  
+**\-\-pro** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file containing loci of promoters in the genome in .coords format (see below)\*\*  
+**\-\-term**  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file containing loci of terminators in the genome in .coords format (see below)\*\*  
+**\-\-intlen**  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minimum length of an intergenic region to be considered as a region of interest for downstream RNA-seq data analysis (default cutoff is **70bp**)  
 
 \*\* *.coords FORMAT:*  
 \<START\> \<STOP\> \<STRAND\> \<DESCRIPTION\>    
@@ -43,7 +43,7 @@
 *Sample entry for terminator locus in .coords file:*    
 3046632 3046596 -       TERM\_001  
 
-If files containing locus of promoters and terminators in the genome are provided, the program will identify putative non-coding RNA based on the existing annotation and the expression profile generated from RNA-seq  
+If files containing locus of promoters and terminators in the genome are provided, the program will identify putative non-coding RNA based on the existing annotation and the expression profile generated from RNA-seq.  
 
 *********************************************************
 
@@ -106,9 +106,14 @@ Results files mentioned above generated from RNA-seq and Proteogenomic analysis 
 1. Tab delimited file containing list of all annotated regions and whether they were expressed in the RNA-seq and proteomics data sets (***IntegratedEx.tab***).  
 2. Tab delimited file containing list of all expressed peptides and ePSTs (from PGM tool) and whether they were expressed in the RNA-seq data (***PGMEx.tab***).   
 
+*********************************************************  
+  
 ##Possible downstream analysis of results from BIRAP:  
 
 All expressed intergenic regions/peptides/ePSTs (tab delimited) files can be converted into '.gff' format and be loaded into annotation tools such as Artemis or IGV for updating annotation.   
 Fasta sequences of expressed intergenic regions can be searched in BlastX to identify novel protein coding regions and/or update existing annotation.   
 Fasta sequences of putative sRNA can be searched against Rfam or sRNAdb to annotate them.   
 If expressed regions are not conserved in any of the above mentioned databases, it is up to the end user to interpret and annotate their findings.  
+
+*********************************************************  
+  
