@@ -65,24 +65,27 @@ img {
 <h1>Bacterial Intergenic Region Analysis Pipeline (BIRAP)</h1>
 <div id="description" class="section level2">
 <h2>Description</h2>
-<p>BIRAP (Bacterial Intergenic Region Analysis Pipeline) is an open source, easy to use Perl pipeline that can be used to re-annotate bacterial genomes using experimental data. The tool integrates expression profile derived from RNA-seq and/or proteogenomics, compares it with existing in silico annotation and helps validate annotation, identify novel protein coding regions, putative non-coding RNA as well as help correct er-rors in the existing annotation. The pipeline requires “pileup” output from SAMtools for RNA-seq data and peptide/ePST locus file (GFF) from the Proteogenomic Mapping tool for prote-ogenomics data along with the genome and existing in silico annotation. When information regarding the locus of promot-ers and terminators in the genome (in .coords format) is pro-vided, the pipeline will also help identify non-coding RNA.</p>
+<p><strong>B</strong>acterial <strong>I</strong>ntergenic <strong>R</strong>egion <strong>A</strong>nalysis <strong>P</strong>ipeline (<strong>BIRAP</strong>) is an open source, easy to use Perl pipeline that can be used to re-annotate bacterial genomes using experimental data. The tool integrates expression profile derived from RNA-seq and/or proteogenomics, compares it with existing in silico annotation and helps validate annotation, identify novel protein coding regions, putative non-coding RNA as well as help correct er-rors in the existing annotation. The pipeline requires “pileup” output from SAMtools for RNA-seq data and peptide/ePST locus file (GFF) from the Proteogenomic Mapping tool for prote-ogenomics data along with the genome and existing in silico annotation. When information regarding the locus of promot-ers and terminators in the genome (in .coords format) is provided, the pipeline will also help identify non-coding RNA.</p>
 </div>
 <div id="usage" class="section level2">
 <h2>Usage</h2>
 <p><strong>Bacterial Intergenic Region Analysis Pipeline Help</strong></p>
 <div id="basic-usage-" class="section level3">
 <h3>Basic usage:-</h3>
+<blockquote>
 <p>$ perl birap.pl --analysis [1 or 2 or 3] --fasta [genome.fasta] --pileup [file1 file2 … or *.pileup] --pgm [proteogenomic.gff] --anno [annotation.gff OR annotation.ptt] --output [output filename base] --pro [promoters.coords] --term [terminators.coords] --intlen [value (default:70)]</p>
+</blockquote>
 <hr />
 </div>
 <div id="description-of-parameters" class="section level3">
 <h3>Description of parameters:</h3>
-<p><strong>Mandatory parameters</strong>: --analysis, --fasta, --pileup and/or --pgm based on “analysis”, --anno, --output</p>
-<p>--analysis Choose the type of analysis you wish to perform from among the following options: 1 for analysis of intergenic regions using RNA-seq data 2 for analysis of intergenic regions using Proteomics data 3 for analysis of intergenic regions using integrated omics approach --fasta genome file --pileup one or more bowtie alignment output files in pileup format (obtained using samtools ‘mpileup’) (please provide space-separated absolute path for each file with respect to current working directory. ’pathtodir/*.pileup’ can also be used) --pgm GFF file from Proteogenomic mapping tool or similar tools providing the locus of expressed peptides in GFF format --anno annotation file in .gff or .ptt format</p>
-<p>--output base filename to be used for all output files Optional arguments:</p>
-<p>--pro file containing loci of promoters in the genome in .coords format (see below)** --term file containing loci of terminators in the genome in .coords format (see below)** --intlen minimum length of an intergenic region to be considered as a region of interest for downstream RNA-seq data analysis (default cutoff is 70bp)</p>
-<p>**.coords FORMAT: <START> <STOP> <STRAND> <DESCRIPTION> Sample entry for promoter locus in .coords file: 14024 14052 + sigmaA_15bp</p>
-<p>Sample entry for terminator locus in .coords file: 3046632 3046596 - TERM_001</p>
+<p><strong>Mandatory arguments</strong>: --analysis, --fasta, --pileup and/or --pgm based on “analysis”, --anno, --output</p>
+<p><strong>--analysis</strong> (<em>Choose the type of analysis you wish to perform from among the following options:</em>)<br /> <strong>1</strong> for analysis of intergenic regions using <strong>RNA-seq</strong> data<br /> <strong>2</strong> for analysis of intergenic regions using <strong>Proteomics</strong> data<br /> <strong>3</strong> for analysis of intergenic regions using <strong>integrated omics</strong> approach</p>
+<p><strong>--fasta</strong> genome file<br /><strong>--pileup</strong> one or more bowtie alignment output files in pileup format (obtained using samtools ‘mpileup’)<br /> (please provide space-separated absolute path for each file with respect to current working directory. ’pathtodir/*.pileup’ can also be used) <strong>--pgm</strong> GFF file from Proteogenomic mapping tool or similar tools providing the locus of expressed peptides in GFF format<br /><strong>--anno</strong> annotation file in .gff or .ptt format<br /><strong>--output</strong> base filename to be used for all output files</p>
+<p><strong>Optional arguments:</strong></p>
+<p><strong>--pro</strong> file containing loci of promoters in the genome in .coords format (see below)**<br /><strong>--term</strong> file containing loci of terminators in the genome in .coords format (see below)**<br /><strong>--intlen</strong> minimum length of an intergenic region to be considered as a region of interest for downstream RNA-seq data analysis (default cutoff is <strong>70bp</strong>)</p>
+<p>** <em>.coords FORMAT:</em><br />&lt;START&gt; &lt;STOP&gt; &lt;STRAND&gt; &lt;DESCRIPTION&gt;<br /><em>Sample entry for promoter locus in .coords file:</em><br />14024 14052 + sigmaA_15bp</p>
+<p><em>Sample entry for terminator locus in .coords file:</em><br />3046632 3046596 - TERM_001</p>
 <p>If files containing locus of promoters and terminators in the genome are provided, the program will identify putative non-coding RNA based on the existing annotation and the expression profile generated from RNA-seq</p>
 <hr />
 </div>
@@ -92,8 +95,15 @@ img {
 <p>RNA-seq input files: ‘mpileup’ output from SAM tools generated after aligning the reads to the genome Protein expression: ‘.gff’ output from Proteogenomic Mapping Tool containing locus of peptides and ePSTs. PGM tool manual <a href="http://www.agbase.msstate.edu/tools/pgm/">here</a>.</p>
 <div id="generating-samtools-output" class="section level3">
 <h3>Generating SAMtools output:</h3>
-<p>Start with Fastq files, map them to the genome using Bowtie2 aligner as described in the Bowtie tutorial <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml">here</a>.<br />Step1. Index the bacterial genome using ‘bowtie-build’ Step2. Align reads to the genome using Bowtie2 and generate the alignment output in ‘.sam’ format Step3. Convert the .sam to .bam file using SAMtools Step4. Sort the ‘.bam’ file using SAMtools. Do not forget to run the following command before going to step 5 “samtools faidx genome.fasta” where “genome.fasta” is your bacterial genome. Step5. Generate pileup file for reads per base expression as described <a href="http://samtools.sourceforge.net/samtools.shtml">here</a> using the following command “samtools mpileup -f genome.fasta sorted1.bam,sorted2.bam,. output.pileup” OR “samtools mpileup -f genome.fasta sorted1.bam output1.pileup” “samtools mpileup -f genome.fasta sorted2.bam output2.pileup” and so on..</p>
-<p>NOTE: Do not forget to save the result in Step 5 as “something.pileup”. You can generate a single pileup file containing all your replicates when you provide a comma separated list of all ‘sorted.bam’ files or generate an individual pileup output file for each of your samples. If you are low are computing power, we recommend generating separate pileup files for each of your samples. Just put them all in one folder before you run BIRAP. Pileup files are usually large and take up a lot of memory. Once you have the .gff and/or .pileup files, run BIRAP.pl as detailed above in the BIRAP “Usage” section.</p>
+<p>Start with Fastq files, map them to the genome using Bowtie aligner as described in the Bowtie tutorial <a href="http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml">here</a>. Steps:</p>
+<ol style="list-style-type: decimal">
+<li>Index the bacterial genome using ‘bowtie-build’<br /></li>
+<li>Align reads to the genome using Bowtie2 and generate the alignment output in ‘.sam’ format<br /></li>
+<li>Convert the .sam to .bam file using SAMtools<br /></li>
+<li>Sort the ‘.bam’ file using SAMtools.<br /><em>Do not forget to run the following command before going to step 5</em><br />“samtools faidx genome.fasta” where “genome.fasta” is your bacterial genome.</li>
+<li>Generate pileup file for reads per base expression as described <a href="http://samtools.sourceforge.net/samtools.shtml">here</a> using the following command<br />“samtools mpileup -f genome.fasta sorted1.bam,sorted2.bam,. output.pileup”<br />OR<br />“samtools mpileup -f genome.fasta sorted1.bam output1.pileup”<br />“samtools mpileup -f genome.fasta sorted2.bam output2.pileup” and so on..</li>
+</ol>
+<p><em>NOTE: Do not forget to save the result in Step 5 as “something.pileup”.</em><br />You can generate a single pileup file containing all your replicates when you provide a comma separated list of all ‘sorted.bam’ files or generate an individual pileup output file for each of your samples. If you are low are computing power, we recommend generating separate pileup files for each of your samples. Just put them all in one folder before you run BIRAP. Pileup files are usually large and take up a lot of memory.<br />Once you have the .gff and/or .pileup files, run BIRAP.pl as detailed above in the BIRAP “Usage” section.</p>
 </div>
 </div>
 <div id="output" class="section level2">
@@ -102,28 +112,36 @@ img {
 <div id="analysis-choice-1-rna-seq-analysis" class="section level3">
 <h3>Analysis choice 1: RNA-seq analysis</h3>
 <ol style="list-style-type: decimal">
-<li>Tab delimited file containing a list of all annotated regions and whether they were expressed in the data set (<strong><em>GenEx.tab</em></strong>). <gene_start> <gene_stop> <gene_strand> <gene_description> <expression></li>
-<li>Tab delimited file containing list of all expressed intergenic regions (<strong><em>EIR.tab</em></strong>) in the following format: <EIR_Description> <EIR_start> <EIR_stop> <EIR_association> The “EIR_association” column details the relationship of the expressed region with respect to a neighboring annotated region.</li>
+<li>Tab delimited file containing a list of all annotated regions and whether they were expressed in the data set (<strong><em>GenEx.tab</em></strong>).<br />&lt;gene_start&gt; &lt;gene_stop&gt; &lt;gene_strand&gt; &lt;gene_description&gt; &lt;expression&gt;<br /></li>
+<li>Tab delimited file containing list of all expressed intergenic regions (<strong><em>EIR.tab</em></strong>) in the following format: &lt;EIR_Description&gt; &lt;EIR_start&gt; &lt;EIR_stop&gt; &lt;EIR_association&gt;<br />The “EIR_association” column details the relationship of the expressed region with respect to a neighboring annotated region.<br /></li>
 <li>Fasta file containing the sequences of all expressed intergenic regions (<strong><em>EIR.fasta</em></strong>).</li>
 </ol>
-<p>If loci of promoters and terminators in the genome were provided, two additional result files are generated if any putative non-coding RNA are identified. They are: 4. Tab delimited file containing loci of all putative non-coding RNA (<strong><em>putative_sRNA.tab</em></strong>) in the following format <EIR_Description> <EIR_start> <EIR_stop> <signal_start> <signal_stop> <signal_description> <signal_start> <signal_stop> <signal_description>. Here “signal” associated with the EIR could be a promoter or a terminator or both. 5. Fasta file containing sequences of putative non-coding RNA (<strong><em>putative_sRNA.fasta</em></strong>).</p>
+<p>If loci of promoters and terminators in the genome were provided, two additional result files are generated if any putative non-coding RNA are identified. They are:</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Tab delimited file containing loci of all putative non-coding RNA (<strong><em>putative_sRNA.tab</em></strong>) in the following format<br />&lt;EIR_Description&gt; &lt;EIR_start&gt; &lt;EIR_stop&gt; &lt;signal_start&gt; &lt;signal_stop&gt; &lt;signal_description&gt; &lt;signal_start&gt; &lt;signal_stop&gt; &lt;signal_description&gt;.<br />Here “signal” associated with the EIR could be a promoter or a terminator or both.<br /></li>
+<li>Fasta file containing sequences of putative non-coding RNA (<strong><em>putative_sRNA.fasta</em></strong>).</li>
+</ol>
 </div>
 <div id="analysis-choice-2-proteomic-analysis" class="section level3">
 <h3>Analysis choice 2: Proteomic analysis</h3>
 <ol style="list-style-type: decimal">
-<li>Tab delimited file containing a list of all annotated regions and the number of peptides that mapped to each (<strong><em>ProtEx.tab</em></strong>). <protein_start> <protein_stop> <strand> <description> <peptide_count> <expression></li>
-<li>Tab delimited file containing loci of all expressed intergenic peptides (<strong><em>EIP.tab</em></strong>) and their associate to annotated regions <EIP_start> <EIP_stop> <EIP_strand> <EIP_description> <EIP_association></li>
+<li>Tab delimited file containing a list of all annotated regions and the number of peptides that mapped to each (<strong><em>ProtEx.tab</em></strong>).<br />&lt;protein_start&gt; &lt;protein_stop&gt; &lt;strand&gt; &lt;description&gt; &lt;peptide_count&gt; &lt;expression&gt;<br /></li>
+<li>Tab delimited file containing loci of all expressed intergenic peptides (<strong><em>EIP.tab</em></strong>) and their associate to annotated regions<br />&lt;EIP_start&gt; &lt;EIP_stop&gt; &lt;EIP_strand&gt; &lt;EIP_description&gt; &lt;EIP_association&gt;<br /></li>
 <li>Fasta file containing the sequences of ePSTs of all intergenic peptides that code for putative novel protein coding regions (<strong><em>Intergenic_ePST.fasta</em></strong>).</li>
 </ol>
 </div>
 <div id="analysis-choice-3-integrated-analysis" class="section level3">
 <h3>Analysis choice 3: Integrated analysis</h3>
-<p>Results files mentioned above generated from RNA-seq and Proteogenomic analysis as well as the following: 1. Tab delimited file containing list of all annotated regions and whether they were expressed in the RNA-seq and proteomics data sets (<strong><em>IntegratedEx.tab</em></strong>). 2. Tab delimited file containing list of all expressed peptides and ePSTs (from PGM tool) and whether they were expressed in the RNA-seq data (<strong><em>PGMEx.tab</em></strong>).</p>
+<p>Results files mentioned above generated from RNA-seq and Proteogenomic analysis as well as the following:</p>
+<ol style="list-style-type: decimal">
+<li>Tab delimited file containing list of all annotated regions and whether they were expressed in the RNA-seq and proteomics data sets (<strong><em>IntegratedEx.tab</em></strong>).<br /></li>
+<li>Tab delimited file containing list of all expressed peptides and ePSTs (from PGM tool) and whether they were expressed in the RNA-seq data (<strong><em>PGMEx.tab</em></strong>).</li>
+</ol>
 </div>
 </div>
 <div id="possible-downstream-analysis-of-results-from-birap" class="section level2">
 <h2>Possible downstream analysis of results from BIRAP:</h2>
-<p>All expressed intergenic regions/peptides/ePSTs (tab delimited) files can be converted into ‘.gff’ format and be loaded into annotation tools such as Artemis or IGV for updating annotation. Fasta sequences of expressed intergenic regions can be searched in BlastX to identify novel protein coding regions and/or update existing annotation. Fasta sequences of putative sRNA can be searched against Rfam or sRNAdb to annotate them. If expressed regions are not conserved in any of the above mentioned databases, it is up to the end user to interpret and annotate their findings.</p>
+<p>All expressed intergenic regions/peptides/ePSTs (tab delimited) files can be converted into ‘.gff’ format and be loaded into annotation tools such as Artemis or IGV for updating annotation.<br />Fasta sequences of expressed intergenic regions can be searched in BlastX to identify novel protein coding regions and/or update existing annotation.<br />Fasta sequences of putative sRNA can be searched against Rfam or sRNAdb to annotate them.<br />If expressed regions are not conserved in any of the above mentioned databases, it is up to the end user to interpret and annotate their findings.</p>
 </div>
 </div>
 
