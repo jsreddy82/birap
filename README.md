@@ -24,7 +24,7 @@
   
 **\-\-fasta** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;genome file  
 **\-\-pileup** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;one or more bowtie alignment output files in pileup format (obtained using samtools 'mpileup')  
-*(please provide space-separated absolute path for each file with respect to current working directory.   \'pathtodir\/\*\.pileup\' can also be used)*  
+  (please provide space-separated absolute path for each file with respect to current working directory: 'pathtodir/\*.pileup' can also be used)   
 **\-\-pgm** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GFF file from Proteogenomic mapping tool or similar tools providing the locus of expressed peptides in GFF format  
 **\-\-anno**  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;annotation file in .gff or .ptt format  
 **\-\-output** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;base filename to be used for all output files  
